@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using GameSandbox.Controls;
 
 namespace GameSandbox.GameState
@@ -16,13 +17,15 @@ namespace GameSandbox.GameState
         Texture2D _texture;
         SpriteBatch _spritebatch;
         ContentManager _content;
+        InputManager _inputManager;
 
-        public MainMenu (GraphicsDevice graphics, ContentManager content, GameStateManager manager)
-            :base(manager)
+        public MainMenu (GraphicsDevice graphics, ContentManager content, GameStateManager stateManager, InputManager inputManager)
+            :base(stateManager)
         {
             _graphics = graphics;
             _content = content;
             _spritebatch = new SpriteBatch(_graphics);
+            _inputManager = inputManager;
         }
 
         public override void Draw(GameTime gameTime)
@@ -43,6 +46,16 @@ namespace GameSandbox.GameState
 
         public override void Update(GameTime gameTime)
         {
+            HandleInput(_inputManager);
         }
+
+        private void HandleInput(InputManager inputManager)
+        {
+            if (inputManager.IsKeyPressed(Keys.N))
+            {
+                this.StateManager.CreateHubWorld();
+            }
+        }
+
     }
 }

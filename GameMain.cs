@@ -56,6 +56,7 @@ namespace GameSandbox
                 Exit();
 
             _serviceContainer.GetService<GameStateManager>().Update(gameTime);
+            _serviceContainer.GetService<InputManager>().Update();
             base.Update(gameTime);
         }
 
@@ -64,7 +65,6 @@ namespace GameSandbox
             GraphicsDevice.Clear(Color.CornflowerBlue);
             _serviceContainer.GetService<GameStateManager>().Draw(gameTime);
             base.Draw(gameTime);
-
         }
 
     }

@@ -9,38 +9,55 @@ namespace GameSandbox.Controls
 {
     public class InputManager
     {
-        private KeyboardState lastKeyboardState;
-        private MouseState lastMouseState;
-
-        private GamePadState[] lastControllerState;
-        private Vector2 lastMouse = Vector2.Zero;
-        private int lastMouseScroll;
+        private KeyboardState _previousKeyboardState;
+        private KeyboardState _currentKeyboardState;
+        private MouseState _previousMouseState;
+        private MouseState _currentMouseState;
+        private GamePadState[] _currentControllerState;
+        private GamePadState[] _previousControllerState;
+        private bool gamepadEnabled = false;
 
         public void Initialize()
         {
-            lastControllerState = new GamePadState[4];
+            _currentControllerState = new GamePadState[4];
+            _previousControllerState = new GamePadState[4];
+            _currentKeyboardState = Keyboard.GetState();
+            _previousKeyboardState = _currentKeyboardState;
+            _currentMouseState = Mouse.GetState();
+            _previousMouseState = _currentMouseState;
         }
 
-        public void RefreshState()
+        public void Update()
         {
-            lastKeyboardState = Keyboard.GetState();
-            lastMouseState = Mouse.GetState();
-            lastMouse = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
-            lastMouseScroll = Mouse.GetState().ScrollWheelValue;
+            _previousKeyboardState = _currentKeyboardState;
+            _previousMouseState = _currentMouseState;
+            _currentKeyboardState = Keyboard.GetState();
+            _currentMouseState = Mouse.GetState();
+
+            if (gamepadEnabled)
+            {
+                _currentControllerState[0] = GamePad.GetState(PlayerIndex.One);
+                _currentControllerState[1] = GamePad.GetState(PlayerIndex.Two);
+                _currentControllerState[2] = GamePad.GetState(PlayerIndex.Three);
+                _currentControllerState[3] = GamePad.GetState(PlayerIndex.Four);
+            }
         }
 
         public GamePadState GetGamePadState(PlayerIndex playerIndex)
         {
             if (playerIndex == PlayerIndex.One)
-                return lastControllerState[0];
+                return _previousControllerState[0];
             else if (playerIndex == PlayerIndex.Two)
-                return lastControllerState[1];
+                return _previousControllerState[1];
             else if (playerIndex == PlayerIndex.Three)
-                return lastControllerState[2];
+                return _previousControllerState[2];
             else
-                return lastControllerState[3];
+                return _previousControllerState[3];
         }
 
+        /*
+         * Mouse
+         */
         public bool IsLeftMouseUp()
         {
             return Mouse.GetState().LeftButton == ButtonState.Released;
@@ -63,32 +80,32 @@ namespace GameSandbox.Controls
 
         public bool IsLeftMousePressed()
         {
-            return IsLeftMouseDown() && (lastMouseState.LeftButton == ButtonState.Released);
+            return IsLeftMouseDown() && (_previousMouseState.LeftButton == ButtonState.Released);
         }
 
         public bool IsRightMousePressed()
         {
-            return IsRightMouseDown() && (lastMouseState.RightButton == ButtonState.Released);
+            return IsRightMouseDown() && (_previousMouseState.RightButton == ButtonState.Released);
         }
 
         public bool IsLeftMouseReleased()
         {
-            return !IsLeftMouseDown() && (lastMouseState.LeftButton == ButtonState.Pressed);
+            return !IsLeftMouseDown() && (_previousMouseState.LeftButton == ButtonState.Pressed);
         }
 
         public bool IsRightMouseReleased()
         {
-            return !IsRightMouseDown() && (lastMouseState.RightButton == ButtonState.Pressed);
+            return !IsRightMouseDown() && (_previousMouseState.RightButton == ButtonState.Pressed);
         }
 
         public bool ScrolledUp()
         {
-            return lastMouseScroll - Mouse.GetState().ScrollWheelValue > 0;
+            return _previousMouseState.ScrollWheelValue - Mouse.GetState().ScrollWheelValue > 0;
         }
 
         public bool ScrolledDown()
         {
-            return lastMouseScroll - Mouse.GetState().ScrollWheelValue < 0;
+            return _previousMouseState.ScrollWheelValue - Mouse.GetState().ScrollWheelValue < 0;
         }
 
         public Vector2 GetMousePosition()
@@ -98,23 +115,30 @@ namespace GameSandbox.Controls
 
         public  Vector2 GetRelativeMouse()
         {
-            return GetMousePosition() - lastMouse;
+            return GetMousePosition() - _previousMouseState.Position.ToVector2();
         }
 
+        /*
+         *  Keyboard
+         */
         public bool IsKeyPressed(Keys key)
         {
-            return Keyboard.GetState().IsKeyDown(key) && !lastKeyboardState.IsKeyDown(key);
+            return Keyboard.GetState().IsKeyDown(key) && !_previousKeyboardState.IsKeyDown(key);
         }
 
         public bool IsKeyDown(Keys key)
         {
-            return Keyboard.GetState().IsKeyDown(key) && lastKeyboardState.IsKeyDown(key);
+            return Keyboard.GetState().IsKeyDown(key) && _previousKeyboardState.IsKeyDown(key);
         }
 
         public bool IsKeyReleased(Keys key)
         {
-            return !Keyboard.GetState().IsKeyDown(key) && lastKeyboardState.IsKeyDown(key);
+            return !Keyboard.GetState().IsKeyDown(key) && _previousKeyboardState.IsKeyDown(key);
         }
+
+        /*
+         *  Gamepad
+         */
 
         public bool IsButtonPressed(Buttons button, PlayerIndex playerIndex)
         {

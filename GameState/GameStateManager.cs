@@ -56,18 +56,20 @@ namespace GameSandbox.GameState
 
         public void CreateMainMenu()
         {
-            GameState menu = new MainMenu(_serviceContainer.GetService<GraphicsDevice>(), _serviceContainer.GetService<ContentManager>(), this);
+            GameState menu = new MainMenu(_serviceContainer.GetService<GraphicsDevice>(), _serviceContainer.GetService<ContentManager>(), this, _serviceContainer.GetService<InputManager>());
             PushState(menu);
         }
 
         public void CreateHubWorld()
         {
-
+            GameState worldState = new WorldState(this, _serviceContainer.GetService<ContentManager>(), _serviceContainer.GetService<GraphicsDevice>());
+            PushState(worldState);
         }
 
         public void CreateDungeon()
         {
 
         }
+
     }
 }

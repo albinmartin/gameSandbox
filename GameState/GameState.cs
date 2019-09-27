@@ -10,11 +10,13 @@ namespace GameSandbox.GameState
 {
     public abstract class GameState
     {
-        private GameStateManager _manager;
+        private GameStateManager _stateManager;
+
+        public GameStateManager StateManager { get => _stateManager; set => _stateManager = value; }
 
         protected GameState(GameStateManager manager)
         {
-            _manager = manager;
+            _stateManager = manager;
         }
 
         public abstract void Update(GameTime gameTime);

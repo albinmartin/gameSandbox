@@ -7,7 +7,11 @@ using GameSandbox.Entities;
 
 namespace GameSandbox.Components
 {
-    public enum ComponentType { sprite };
+    [Flags]
+    public enum ComponentType { //Use values with power of 2 for bitmask purposes
+        sprite = 0,
+        movement = 2,
+    };
 
     public abstract class Component
     {

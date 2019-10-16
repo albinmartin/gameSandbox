@@ -9,21 +9,21 @@ namespace GameSandbox.Components
 {
     class Sprite : Component
     {
-        string textureName;
+        public string TextureName { get; set; }
+
         public Sprite(Entity entity)
             :base(entity)
         {
             this._type = ComponentType.sprite;
+            TextureName = "entities/default";
         }
 
         public override void OnStartup()
         {
-            // Registrera till renderer
         }
 
         public override void OnShutdown()
         {
-            // Avregistrera från renderer
         }
     }
 }

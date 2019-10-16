@@ -9,7 +9,8 @@ namespace GameSandbox
 {
     public class GameMain : Game
     {
-        GameServiceContainer _serviceContainer;
+        GameStateManager _stateManager;
+        InputManager _input;
         GraphicsDeviceManager _graphicsDeviceManager;
 
         public GameMain()
@@ -26,24 +27,18 @@ namespace GameSandbox
 
         protected override void LoadContent()
         {
-            /* - Populate services -
-             * !CAREFUL! Don't add too many services to avoid hiding API
-             * TODO: Watch how this works out
+            /* 
+             * Implement service provider?
              */
-            _serviceContainer = new GameServiceContainer();
-            _serviceContainer.AddService<GraphicsDevice>(GraphicsDevice);
-            _serviceContainer.AddService<SpriteBatch>(new SpriteBatch(GraphicsDevice));
-            _serviceContainer.AddService<GameStateManager>(new GameStateManager(_serviceContainer));
-            _serviceContainer.AddService<ContentManager>(Content);
-            InputManager input = new InputManager();
-            input.Initialize();
-            _serviceContainer.AddService<InputManager>(input);
+
+            _input = new InputManager();
+            _input.Initialize();
+            _stateManager = new GameStateManager(Content, _graphicsDeviceManager.GraphicsDevice, _input);
 
             /*
              * Create menu and world
              */
-            GameStateManager stateManager = _serviceContainer.GetService<GameStateManager>();
-            stateManager.CreateMainMenu();
+            _stateManager.CreateMainMenu();
         }
 
         protected override void UnloadContent()
@@ -55,15 +50,15 @@ namespace GameSandbox
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            _serviceContainer.GetService<GameStateManager>().Update(gameTime);
-            _serviceContainer.GetService<InputManager>().Update();
+            _stateManager.Update(gameTime);
+            _input.Update();
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            _serviceContainer.GetService<GameStateManager>().Draw(gameTime);
+            _stateManager.Draw(gameTime);
             base.Draw(gameTime);
         }
 

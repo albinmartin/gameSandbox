@@ -4,25 +4,52 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GameSandbox.Entities;
+using GameSandbox.Components;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 
 namespace GameSandbox.Systems
 {
-    class RenderSystem
+    class RenderSystem : DrawSystem
     {
-        List<Entity> _renderables;
-        public RenderSystem()
+        private SpriteBatch _spriteBatch;
+
+        public RenderSystem(EntityManager entityManager, ContentManager content, GraphicsDevice graphics)
+            :base(entityManager, content, graphics)
         {
-            _renderables = new List<Entity>();
+            _spriteBatch = new SpriteBatch(graphics);
         }
 
-        public void Register(Entity entity)
+        public override void Draw()
         {
-            _renderables.Add(entity);
+            List<Entity> sprites = _entityManager.GetEntities(ComponentType.sprite);
+
+            _spriteBatch.Begin();
+            foreach(var entity in sprites)
+            {
+                Vector2 pos = GetPosition(entity);
+                Texture2D texture = GetTexture(entity);
+                _spriteBatch.Draw(texture, pos, Color.White);
+            }
+            _spriteBatch.End();
         }
 
-        public void Draw()
+        public override void Update(GameTime gameTime)
         {
-            
+            Draw();
         }
+
+        private Vector2 GetPosition(Entity entity)
+        {
+            return ((Movement)entity.GetComponent(ComponentType.movement)).Position;
+        }
+
+        private Texture2D GetTexture(Entity entity)
+        {
+            return Content.Load<Texture2D>(((Sprite)entity.GetComponent(ComponentType.sprite)).TextureName);
+        }
+
+
     }
 }

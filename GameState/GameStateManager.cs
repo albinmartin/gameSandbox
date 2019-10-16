@@ -13,15 +13,19 @@ namespace GameSandbox.GameState
 {
     public class GameStateManager
     {
-        private GameServiceContainer _serviceContainer;
         private Stack<GameState> _gameStates;
         private GameState _currentState;
+        private ContentManager _content;
+        private GraphicsDevice _graphics;
+        private InputManager _input;
 
         public GameState CurrentState { get => _currentState; }
 
-        public GameStateManager(GameServiceContainer serviceContainer)
+        public GameStateManager(ContentManager content, GraphicsDevice graphics, InputManager input)
         {
-            _serviceContainer = serviceContainer;
+            _content = content;
+            _graphics = graphics;
+            _input = input;
             _gameStates = new Stack<GameState>();
             _currentState = null;
         }
@@ -56,13 +60,13 @@ namespace GameSandbox.GameState
 
         public void CreateMainMenu()
         {
-            GameState menu = new MainMenu(_serviceContainer.GetService<GraphicsDevice>(), _serviceContainer.GetService<ContentManager>(), this, _serviceContainer.GetService<InputManager>());
+            GameState menu = new MainMenu(_graphics, _content, this, _input);
             PushState(menu);
         }
 
         public void CreateHubWorld()
         {
-            GameState worldState = new WorldState(this, _serviceContainer.GetService<ContentManager>(), _serviceContainer.GetService<GraphicsDevice>());
+            GameState worldState = new WorldState(this, _content, _graphics);
             PushState(worldState);
         }
 

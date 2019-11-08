@@ -8,6 +8,7 @@ using GameSandbox.Systems;
 using GameSandbox.Components;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using GameSandbox.Controls;
 
 namespace GameSandbox.Entities
 {
@@ -24,17 +25,27 @@ namespace GameSandbox.Entities
             _entityManager = new EntityManager();
         }
 
-        public void LoadContent(ContentManager content, GraphicsDevice graphics)
+        public void LoadContent(ContentManager content, GraphicsDevice graphics, InputManager input)
         {
             // Create systems
             AddSystem(new RenderSystem(_entityManager, content, graphics));
             AddSystem(new MovementSystem(_entityManager));
+            AddSystem(new PlayerSystem(_entityManager, input));
 
             // Create Entities
             Entity e = new Entity();
             e.AddComponent(new Sprite(e));
             e.AddComponent(new Movement(e));
+            e.AddComponent(new Player(e));
             AddEntity(e);
+
+            for(int i = 0; i < 1; i++)
+            {
+                Entity t = new Entity();
+                t.AddComponent(new Sprite(t));
+                t.AddComponent(new Movement(t, new Vector2(0, (float)(i + 20))));
+                AddEntity(t);
+            }
         }
 
         public void Draw()

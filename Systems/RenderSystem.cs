@@ -19,11 +19,12 @@ namespace GameSandbox.Systems
             :base(entityManager, content, graphics)
         {
             _spriteBatch = new SpriteBatch(graphics);
+            _entitySet = ComponentType.Sprite;
         }
 
         public override void Draw()
         {
-            List<Entity> sprites = _entityManager.GetEntities(ComponentType.sprite);
+            List<Entity> sprites = _entityManager.GetEntities(ComponentType.Sprite);
 
             _spriteBatch.Begin();
             foreach(var entity in sprites)
@@ -42,12 +43,12 @@ namespace GameSandbox.Systems
 
         private Vector2 GetPosition(Entity entity)
         {
-            return ((Movement)entity.GetComponent(ComponentType.movement)).Position;
+            return ((Movement)entity.GetComponent(ComponentType.Movement)).Position;
         }
 
         private Texture2D GetTexture(Entity entity)
         {
-            return Content.Load<Texture2D>(((Sprite)entity.GetComponent(ComponentType.sprite)).TextureName);
+            return Content.Load<Texture2D>(((Sprite)entity.GetComponent(ComponentType.Sprite)).TextureName);
         }
 
 

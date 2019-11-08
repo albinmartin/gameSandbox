@@ -9,8 +9,11 @@ namespace GameSandbox.Components
 {
     [Flags]
     public enum ComponentType { //Use values with power of 2 for bitmask purposes
-        sprite = 0,
-        movement = 2,
+        None = 0,
+        Sprite = 1,
+        Movement = 2,
+        Player = 4,
+        Animation = 8,
     };
 
     public abstract class Component

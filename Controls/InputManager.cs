@@ -136,6 +136,11 @@ namespace GameSandbox.Controls
             return !Keyboard.GetState().IsKeyDown(key) && _previousKeyboardState.IsKeyDown(key);
         }
 
+        public Keys[] GetKeysDown()
+        {
+            return _currentKeyboardState.GetPressedKeys();
+        }
+
         /*
          *  Gamepad
          */

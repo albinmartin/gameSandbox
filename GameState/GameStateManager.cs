@@ -66,7 +66,7 @@ namespace GameSandbox.GameState
 
         public void CreateHubWorld()
         {
-            GameState worldState = new WorldState(this, _content, _graphics);
+            GameState worldState = new WorldState(this, _content, _graphics, _input);
             PushState(worldState);
         }
 

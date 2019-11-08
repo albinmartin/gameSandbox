@@ -27,7 +27,8 @@ namespace GameSandbox.Entities
             foreach(var key in _indexMap.Keys)
             {
                 // Is there an entry in the map matching this entities components?
-                if ((entity.ComponentMask & key) == key) 
+                // Special case for entity with no components due to the fact that _indexMap initializes with ComponentType.none.
+                if ((entity.ComponentMask & key) == key && key != ComponentType.None || entity.ComponentMask == key) 
                 {
                     _entitySets[_indexMap[key]].Add(entity);
                     added = true;
@@ -48,7 +49,11 @@ namespace GameSandbox.Entities
 
         public List<Entity> GetEntities(ComponentType type)
         {
-            return _entitySets[_indexMap[type]];
+            if(_indexMap.TryGetValue(type, out int index))
+            {
+                return _entitySets[index];
+            }
+            return new List<Entity>();
         }
         
         private int GetOrCreateIndex(ComponentType mask)

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>D:/SharedCloud/Code/GameSandbox/GameSandbox/Content/menu/main1.png</SourceFile>
+  <SourceFile>D:/docs/code/GameSandbox/GameSandbox/Content/menu/main1.png</SourceFile>
   <SourceTime>2019-09-20T18:40:27.7384836+02:00</SourceTime>
-  <DestFile>D:/SharedCloud/Code/GameSandbox/GameSandbox/Content/bin/Windows/Content/menu/main1.xnb</DestFile>
-  <DestTime>2019-09-20T18:41:54.99707+02:00</DestTime>
+  <DestFile>D:/docs/code/GameSandbox/GameSandbox/Content/bin/Windows/Content/menu/main1.xnb</DestFile>
+  <DestTime>2019-11-08T12:10:29.1870203+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-12-08T17:35:54+01:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

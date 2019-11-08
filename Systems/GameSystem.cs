@@ -14,6 +14,8 @@ namespace GameSandbox.Systems
         protected EntityManager _entityManager;
         protected ComponentType _entitySet;
 
+        protected EntityManager EntityManager { get => _entityManager; }
+
         public ComponentType EntitySet { get => _entitySet; }
 
         public GameSystem(EntityManager entityManager)

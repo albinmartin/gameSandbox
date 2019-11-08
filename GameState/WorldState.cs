@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using GameSandbox.Components;
 using GameSandbox.Systems;
+using GameSandbox.Controls;
 
 namespace GameSandbox.GameState
 {
@@ -21,11 +22,13 @@ namespace GameSandbox.GameState
         World _world;
         ContentManager _content;
         GraphicsDevice _graphics;
+        InputManager _input;
 
-        public WorldState(GameStateManager stateManager, ContentManager content, GraphicsDevice graphicsDevice) : base(stateManager)
+        public WorldState(GameStateManager stateManager, ContentManager content, GraphicsDevice graphicsDevice, InputManager input) : base(stateManager)
         {
             _content = content;
             _graphics = graphicsDevice;
+            _input = input;
             _world = new World();
         }
 
@@ -36,7 +39,7 @@ namespace GameSandbox.GameState
 
         public override void LoadContent()
         {
-            _world.LoadContent(_content, _graphics);
+            _world.LoadContent(_content, _graphics, _input);
         }
 
         public override void UnloadContent()

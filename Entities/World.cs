@@ -31,12 +31,14 @@ namespace GameSandbox.Entities
             AddSystem(new RenderSystem(_entityManager, content, graphics));
             AddSystem(new MovementSystem(_entityManager));
             AddSystem(new PlayerSystem(_entityManager, input));
+            AddSystem(new AnimationSystem(_entityManager));
 
             // Create Entities
             Entity e = new Entity();
             e.AddComponent(new Sprite(e));
             e.AddComponent(new Movement(e));
             e.AddComponent(new Player(e));
+            e.AddComponent(new Animation(e, 0, 3, 4));
             AddEntity(e);
 
             for(int i = 0; i < 1; i++)

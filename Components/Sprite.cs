@@ -10,14 +10,14 @@ namespace GameSandbox.Components
 {
     class Sprite : Component
     {
-        public string TextureName { get; set; }
+        public int TextureIndex { get; set; }
         public Vector2 TextureCoord { get; set; }
 
         public Sprite(Entity entity)
             :base(entity)
         {
             this._type = ComponentType.Sprite;
-            TextureName = "entities/default";
+            TextureIndex = 0;
             TextureCoord = Vector2.Zero;
         }
 

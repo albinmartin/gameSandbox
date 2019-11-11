@@ -24,7 +24,8 @@ namespace GameSandbox.Systems
             {
                 Movement m = (Movement)entity.GetComponent(ComponentType.Movement);
                 m.Position += m.Velocity;
-                //TODO: Adjust friction;
+
+                // Add friction.
                 if (m.Velocity.Length() < 0.01f)
                 {
                     m.Velocity = Vector2.Zero;

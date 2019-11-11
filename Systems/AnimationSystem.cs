@@ -27,8 +27,12 @@ namespace GameSandbox.Systems
             foreach(var entity in entities)
             {
                 Animation animation = (Animation)entity.GetComponent(ComponentType.Animation);
+
+                // Calculate framerate based on animation
                 float framerate = (1.0f / animation.Framerate);
                 timeSinceLast += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+                // Update frame
                 if (timeSinceLast > framerate)
                 {
                     AdvanceFrame(animation);

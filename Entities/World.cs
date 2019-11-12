@@ -35,10 +35,10 @@ namespace GameSandbox.Entities
 
             // Create Entities.
             Entity e = new Entity();
-            e.AddComponent(new Sprite(e));
+            e.AddComponent(new Sprite(e, SpriteType.Goatman));
             e.AddComponent(new Movement(e));
             e.AddComponent(new Player(e));
-            e.AddComponent(new Animation(e, 0, 3, 4));
+            e.AddComponent(new Animation(e, SpriteLoop.Left, 4, 4));
             AddEntity(e);
 
             for(int i = 0; i < 1; i++)

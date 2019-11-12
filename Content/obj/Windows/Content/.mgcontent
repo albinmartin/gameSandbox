@@ -5,12 +5,14 @@
   <Config />
   <SourceFiles>
     <File>D:/docs/code/GameSandbox/GameSandbox/Content/entities/default.png</File>
+    <File>D:/docs/code/GameSandbox/GameSandbox/Content/entities/spritesheet_goat.png</File>
     <File>D:/docs/code/GameSandbox/GameSandbox/Content/entities/spritesheet1.png</File>
     <File>D:/docs/code/GameSandbox/GameSandbox/Content/menu/main1.png</File>
     <File>D:/docs/code/GameSandbox/GameSandbox/Content/menu/main2.png</File>
     <File>D:/docs/code/GameSandbox/GameSandbox/Content/menu/world.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

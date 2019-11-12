@@ -26,13 +26,14 @@ namespace GameSandbox.Systems
             _entitySet = ComponentType.Sprite;
 
             // Load spritesheets.
-            _spritesheet = Content.Load<Texture2D>("entities/spritesheet1");
+            _spritesheet = Content.Load<Texture2D>("entities/spritesheet_goat");
 
             // Create source rectangles.
-            _spriteParts = new Rectangle[1,4];
+            int spritesPerRow = 8;
+            _spriteParts = new Rectangle[1,spritesPerRow];
             int width = _spritesheet.Bounds.Width;
             int height = _spritesheet.Bounds.Height;
-            int spritesPerRow = 4; 
+
             for(int i = 0; i<spritesPerRow; i++)
             {
                 _spriteParts[0, i] = new Rectangle(i*(width/spritesPerRow), 0, width / spritesPerRow, height);
@@ -56,7 +57,7 @@ namespace GameSandbox.Systems
                 Animation animation = (Animation)_entityManager.GetComponent(entity, ComponentType.Animation);
                 if (animation != null)
                 {
-                    sourceRect = _spriteParts[GetSpriteTextureIndex(entity), animation.CurrentFrame];
+                    sourceRect = _spriteParts[GetSpriteTextureIndex(entity), animation.CurrentFrame + ((int)animation.SpriteLoop)*animation.LoopLenght];
                 }
                 else
                 {

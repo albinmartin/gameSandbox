@@ -8,16 +8,28 @@ using Microsoft.Xna.Framework;
 
 namespace GameSandbox.Components
 {
+    // Enum for spritesheet index
+    public enum SpriteType { Goatman = 0 }
+
     class Sprite : Component
     {
-        public int TextureIndex { get; set; }
+        public SpriteType SpriteType { get; set; }
         public Vector2 TextureCoord { get; set; }
+        public int TextureIndex { get => (int)this.SpriteType; }
 
         public Sprite(Entity entity)
             :base(entity)
         {
             this._type = ComponentType.Sprite;
-            TextureIndex = 0;
+            SpriteType = SpriteType.Goatman;
+            TextureCoord = Vector2.Zero;
+        }
+
+        public Sprite(Entity entity, SpriteType spriteType)
+            :base(entity)
+        {
+            this._type = ComponentType.Sprite;
+            SpriteType = spriteType;
             TextureCoord = Vector2.Zero;
         }
 

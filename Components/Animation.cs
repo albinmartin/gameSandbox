@@ -7,25 +7,29 @@ using System.Threading.Tasks;
 
 namespace GameSandbox.Components
 {
+    // Enum for spritesheet indexes
+    // TODO: Fix spritesheet and update indexes, idle should be 0 IMO!
+    public enum SpriteLoop { Left = 0, Right = 1, Idle = 2}
+
     public class Animation : Component
     {
-        public int StartIndex { get; set; }
-        public int StopIndex { get; set; }
         public int CurrentFrame { get; set; }
+        public SpriteLoop SpriteLoop { get; set; }
+        public int LoopLenght { get; set; }
         public bool Animating { get; set; }
 
         // Frame transitions per second
         public float Framerate { get; set; }
 
-        public Animation(Entity entity, int startIndex, int stopIndex, float framerate)
+        public Animation(Entity entity, SpriteLoop spriteLoop, int loopLenght, float framerate)
             : base(entity)
         {
             _type = ComponentType.Animation;
-            StartIndex = startIndex;
-            StopIndex = stopIndex;
             CurrentFrame = 0;
-            Framerate = framerate;
+            SpriteLoop = spriteLoop;
+            LoopLenght = loopLenght;
             Animating = false;
+            Framerate = framerate;
         }
 
         public override void OnShutdown()

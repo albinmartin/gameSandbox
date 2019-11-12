@@ -15,7 +15,7 @@ namespace GameSandbox.Systems
     {
         private SpriteBatch _spriteBatch;
 
-        // Spritesheet related
+        // Spritesheet related.
         private Texture2D _spritesheet;
         private Rectangle[,] _spriteParts;
         
@@ -28,7 +28,7 @@ namespace GameSandbox.Systems
             // Load spritesheets.
             _spritesheet = Content.Load<Texture2D>("entities/spritesheet1");
 
-            // Create source rectangles
+            // Create source rectangles.
             _spriteParts = new Rectangle[1,4];
             int width = _spritesheet.Bounds.Width;
             int height = _spritesheet.Bounds.Height;
@@ -49,18 +49,18 @@ namespace GameSandbox.Systems
             _spriteBatch.Begin();
             foreach(var entity in sprites)
             {
-                Vector2 pos = GetPosition(entity);
+                Vector2 pos = ((Movement)_entityManager.GetComponent(entity, ComponentType.Movement)).Position;
                 Rectangle sourceRect;
 
                 // Get animation frame if animated sprite.
-                Animation animation = GetAnimation(entity);
+                Animation animation = (Animation)_entityManager.GetComponent(entity, ComponentType.Animation);
                 if (animation != null)
                 {
-                    sourceRect = _spriteParts[GetSprite(entity).TextureIndex, animation.CurrentFrame];
+                    sourceRect = _spriteParts[GetSpriteTextureIndex(entity), animation.CurrentFrame];
                 }
                 else
                 {
-                    sourceRect = _spriteParts[GetSprite(entity).TextureIndex, 0];
+                    sourceRect = _spriteParts[GetSpriteTextureIndex(entity), 0];
                 }
 
                 // Draw sprite.
@@ -74,19 +74,10 @@ namespace GameSandbox.Systems
             Draw();
         }
 
-        private Animation GetAnimation(Entity entity)
+        // Get texture index in the spritesheet for this sprite.
+        private int GetSpriteTextureIndex(Entity entity)
         {
-            return (Animation)entity.GetComponent(ComponentType.Animation);
-        }
-
-        private Sprite GetSprite(Entity entity)
-        {
-            return (Sprite)entity.GetComponent(ComponentType.Sprite);
-        }
-
-        private Vector2 GetPosition(Entity entity)
-        {
-            return ((Movement)entity.GetComponent(ComponentType.Movement)).Position;
+            return ((Sprite)_entityManager.GetComponent(entity, ComponentType.Sprite)).TextureIndex;
         }
     }
 }

@@ -22,7 +22,7 @@ namespace GameSandbox.Systems
             List<Entity> entities = _entityManager.GetEntities(_entitySet);
             foreach (var entity in entities)
             {
-                Movement m = (Movement)entity.GetComponent(ComponentType.Movement);
+                Movement m = (Movement)_entityManager.GetComponent(entity, ComponentType.Movement);
                 m.Position += m.Velocity;
 
                 // Add friction.

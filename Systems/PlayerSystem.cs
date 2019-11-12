@@ -54,11 +54,12 @@ namespace GameSandbox.Systems
                 foreach(var player in players)
                 {
                     // Update movement
-                    Movement m = (Movement)player.GetComponent(ComponentType.Movement);
+                    Movement m = (Movement)_entityManager.GetComponent(player, ComponentType.Movement);
                     m.Velocity += direction * m.Speed * (gameTime.ElapsedGameTime.Milliseconds/16.0f);
 
-                    // Update frames in animation
-
+                    // TODO: Update frames in animation 
+                    Animation a = (Animation)_entityManager.GetComponent(player, ComponentType.Animation);
+                    
                 }
             }
 

@@ -26,7 +26,7 @@ namespace GameSandbox.Systems
             //Loop them and update frames
             foreach(var entity in entities)
             {
-                Animation animation = (Animation)entity.GetComponent(ComponentType.Animation);
+                Animation animation = (Animation)_entityManager.GetComponent(entity, ComponentType.Animation);
 
                 // Calculate framerate based on animation
                 float framerate = (1.0f / animation.Framerate);

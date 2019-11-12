@@ -17,18 +17,18 @@ namespace GameSandbox.Entities
         public EntityManager()
         {
             int numComponents = Enum.GetValues(typeof(ComponentType)).Length;
-            _entitySets = new List<Entity>[numComponents]; 
+            _entitySets = new List<Entity>[numComponents];
             _indexMap = new Dictionary<ComponentType, int>(Enums.EqualityComparer<ComponentType>());
         }
 
         public void AddEntity(Entity entity)
         {
             bool added = false;
-            foreach(var key in _indexMap.Keys)
+            foreach (var key in _indexMap.Keys)
             {
                 // Is there an entry in the map matching this entities components?
                 // Special case for entity with no components due to the fact that _indexMap initializes with ComponentType.none.
-                if ((entity.ComponentMask & key) == key && key != ComponentType.None || entity.ComponentMask == key) 
+                if ((entity.ComponentMask & key) == key && key != ComponentType.None || entity.ComponentMask == key)
                 {
                     _entitySets[_indexMap[key]].Add(entity);
                     added = true;
@@ -49,13 +49,29 @@ namespace GameSandbox.Entities
 
         public List<Entity> GetEntities(ComponentType type)
         {
-            if(_indexMap.TryGetValue(type, out int index))
+            if (_indexMap.TryGetValue(type, out int index))
             {
                 return _entitySets[index];
             }
             return new List<Entity>();
         }
-        
+
+        public Component GetComponent(Entity entity, ComponentType type)
+        {
+            return entity.GetComponent(type);
+        }
+
+        // Run when adding a system to create index for that entityset
+        public void AddSystemEntry(ComponentType entitySet)
+        {
+            GetOrCreateIndex(entitySet);
+
+        }
+
+        // INTERNAL FUNCTIONS 
+
+        // Get index of specified component mask.
+        // If mask dont have an entry yet, create it.
         private int GetOrCreateIndex(ComponentType mask)
         {
             // If there's no entry, create an index and initialize a list in the entity array
@@ -68,10 +84,6 @@ namespace GameSandbox.Entities
             return index;
         }
 
-        public void AddSystemEntry(ComponentType entitySet)
-        {
-            GetOrCreateIndex(entitySet);
-           
-        }
+
     }
 }

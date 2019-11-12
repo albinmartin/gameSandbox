@@ -43,17 +43,27 @@ namespace GameSandbox.Entities
             }
         }
 
-
         public Component GetComponent (ComponentType type)
         {
-            foreach(var component in _components)
+            // Check if entity has component with componentMask.
+            if ((_componentMask & type) == type)
             {
-                if(component.ComponentType == type)
+                // Find component.
+                foreach (var component in _components)
                 {
-                    return component;
+                    if (component.ComponentType == type)
+                    {
+                        return component;
+                    }
                 }
             }
+
             return null;
+        }
+
+        public bool HasComponent(ComponentType type)
+        {
+            return (_componentMask & type) == type;
         }
     }
 }

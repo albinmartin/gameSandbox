@@ -20,19 +20,21 @@ namespace GameSandbox.Systems
 
         public override void Update(GameTime gameTime)
         {
-            //Get animation entities
+            //Get animation entities.
             List<Entity> entities = _entityManager.GetEntities(ComponentType.Animation);
 
-            //Loop them and update frames
+            //Loop them and update frames.
             foreach(var entity in entities)
             {
                 Animation animation = (Animation)_entityManager.GetComponent(entity, ComponentType.Animation);
 
-                // Calculate framerate based on animation
+                // Check direction of movement if possible.
+                
+                // Calculate framerate based on animation.
                 float framerate = (1.0f / animation.Framerate);
                 timeSinceLast += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-                // Update frame
+                // Update frame.
                 if (timeSinceLast > framerate)
                 {
                     AdvanceFrame(animation);

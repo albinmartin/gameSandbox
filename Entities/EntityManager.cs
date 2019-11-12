@@ -60,8 +60,8 @@ namespace GameSandbox.Entities
         {
             return entity.GetComponent(type);
         }
-
-        // Run when adding a system to create index for that entityset
+        
+        // Run when adding a system to create index for that entityset.
         public void AddSystemEntry(ComponentType entitySet)
         {
             GetOrCreateIndex(entitySet);
@@ -74,7 +74,7 @@ namespace GameSandbox.Entities
         // If mask dont have an entry yet, create it.
         private int GetOrCreateIndex(ComponentType mask)
         {
-            // If there's no entry, create an index and initialize a list in the entity array
+            // If there's no entry, create an index and initialize a list in the entity array.
             if (!_indexMap.TryGetValue(mask, out int index)) 
             {
                 _indexMap[mask] = _indexCount;

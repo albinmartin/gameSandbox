@@ -9,7 +9,7 @@ namespace GameSandbox.Components
 {
     // Enum for spritesheet indexes
     // TODO: Fix spritesheet and update indexes, idle should be 0 IMO!
-    public enum SpriteLoop { Left = 0, Right = 1, Idle = 2}
+    public enum SpriteLoop { IdleLeft = 0, Left = 1, Right = 2, IdleRight = 3}
 
     public class Animation : Component
     {

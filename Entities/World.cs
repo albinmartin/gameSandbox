@@ -41,11 +41,12 @@ namespace GameSandbox.Entities
             e.AddComponent(new Animation(e, SpriteLoop.Left, 4, 4));
             AddEntity(e);
 
-            for(int i = 0; i < 1; i++)
+            // Spawn many entities
+            for(int i = 0; i < 0; i++)
             {
                 Entity t = new Entity();
                 t.AddComponent(new Sprite(t));
-                t.AddComponent(new Movement(t, new Vector2(0, (float)(i + 20))));
+                t.AddComponent(new Movement(t, new Vector2(0, (float)(i*60))));
                 AddEntity(t);
             }
         }

@@ -11,7 +11,6 @@ namespace GameSandbox.Systems
 {
     class AnimationSystem : GameSystem
     {
-        private enum Direction { None = 0, Left = 1, Right = 2, Up = 3, Down = 4}
         private float timeSinceLast;
 
         public AnimationSystem(EntityManager entityManager) : base(entityManager)
@@ -35,14 +34,22 @@ namespace GameSandbox.Systems
                 if(movement != null)
                 {
                     // Determine direction and flip texture accordingly.
-                    switch (GetDirection(movement.Velocity))
+                    switch (movement.Facing)
                     {
-                        case Direction.None:
-                            break;
                         case Direction.Left:
+                            if(movement.Velocity == Vector2.Zero)
+                            {
+                                animation.SpriteLoop = SpriteLoop.IdleLeft;
+                                break;
+                            }
                             animation.SpriteLoop = SpriteLoop.Left;
                             break;
                         case Direction.Right:
+                            if (movement.Velocity == Vector2.Zero)
+                            {
+                                animation.SpriteLoop = SpriteLoop.IdleRight;
+                                break;
+                            }
                             animation.SpriteLoop = SpriteLoop.Right;
                             break;
                         case Direction.Up:
@@ -80,47 +87,6 @@ namespace GameSandbox.Systems
         private void ResetAnimation(Animation animation)
         {
             animation.CurrentFrame = 0;
-        }
-
-
-        // TODO: Add North / South directions. Fix bug when standing still sometimes flips animation.
-        private Direction GetDirection(Vector2 velocity)
-        {
-            // Dot product with up vector (xna coordinates -1 is "north").
-            velocity = Vector2.Normalize(velocity);
-            float dot = Vector2.Dot(velocity, new Vector2(0, -1));
-            if(velocity.X > 0.5 && velocity.Y > 0.5)
-            {
-            }
-            if(dot >= 0)
-            {
-                // North
-                dot = Vector2.Dot(velocity, new Vector2(1, 0));
-                if(dot > 0 )
-                {
-                    // Right
-                    return Direction.Right;
-                }
-                else
-                {
-                    // Left
-                    return Direction.Left;
-                }
-            }else
-            {
-                // South
-                dot = Vector2.Dot(velocity, new Vector2(1, 0));
-                if (dot > 0)
-                {
-                    // Right
-                    return Direction.Right;
-                }
-                else
-                {
-                    // Left
-                    return Direction.Left;
-                }
-            }
         }
     }
 }

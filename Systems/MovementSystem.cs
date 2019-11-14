@@ -22,17 +22,63 @@ namespace GameSandbox.Systems
             List<Entity> entities = _entityManager.GetEntities(_entitySet);
             foreach (var entity in entities)
             {
-                Movement m = (Movement)_entityManager.GetComponent(entity, ComponentType.Movement);
-                m.Position += m.Velocity;
+                Movement movement = (Movement)_entityManager.GetComponent(entity, ComponentType.Movement);
+                movement.Position += movement.Velocity;
 
                 // Add friction.
-                if (m.Velocity.Length() < 0.01f)
+                if (movement.Velocity.Length() < 0.01f)
                 {
-                    m.Velocity = Vector2.Zero;
+                    movement.Velocity = Vector2.Zero;
                 }
                 else
                 {
-                    m.Velocity = m.Velocity * 0.7f;
+                    movement.Velocity = movement.Velocity * 0.7f;
+                }
+
+                // Set face direciton
+                if (movement.Velocity != Vector2.Zero)
+                {
+                    // Moving
+                    movement.Facing = GetDirection(movement.Velocity);
+                }
+            }
+        }
+
+        // TODO: Add North / South directions. Fix bug when standing still sometimes flips animation.
+        private Direction GetDirection(Vector2 velocity)
+        {
+            // Dot product with up vector (xna coordinates -1 is "north").
+            velocity = Vector2.Normalize(velocity);
+            float dot = Vector2.Dot(velocity, new Vector2(0, -1));
+
+            if (dot >= 0)
+            {
+                // North
+                dot = Vector2.Dot(velocity, new Vector2(1, 0));
+                if (dot > 0)
+                {
+                    // Right
+                    return Direction.Right;
+                }
+                else
+                {
+                    // Left
+                    return Direction.Left;
+                }
+            }
+            else
+            {
+                // South
+                dot = Vector2.Dot(velocity, new Vector2(1, 0));
+                if (dot > 0)
+                {
+                    // Right
+                    return Direction.Right;
+                }
+                else
+                {
+                    // Left
+                    return Direction.Left;
                 }
             }
         }

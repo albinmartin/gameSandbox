@@ -37,6 +37,18 @@
 /processorParam:TextureFormat=Color
 /build:entities/spritesheet_goat.png
 
+#begin entities/spritesheet_goat_v1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:entities/spritesheet_goat_v1.png
+
 #begin entities/spritesheet1.png
 /importer:TextureImporter
 /processor:TextureProcessor

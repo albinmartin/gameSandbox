@@ -26,10 +26,10 @@ namespace GameSandbox.Systems
             _entitySet = ComponentType.Sprite;
 
             // Load spritesheets.
-            _spritesheet = Content.Load<Texture2D>("entities/spritesheet_goat");
+            _spritesheet = Content.Load<Texture2D>("entities/spritesheet_goat_v1");
 
             // Create source rectangles.
-            int spritesPerRow = 8;
+            int spritesPerRow = 16;
             _spriteParts = new Rectangle[1,spritesPerRow];
             int width = _spritesheet.Bounds.Width;
             int height = _spritesheet.Bounds.Height;

@@ -17,6 +17,7 @@ namespace GameSandbox.Components
         public SpriteLoop SpriteLoop { get; set; }
         public int LoopLenght { get; set; }
         public bool Animating { get; set; }
+        // Make array where spriteloop is index and store object with looplenght, framerate, currentframe
 
         // Frame transitions per second
         public float Framerate { get; set; }
@@ -28,7 +29,7 @@ namespace GameSandbox.Components
             CurrentFrame = 0;
             SpriteLoop = spriteLoop;
             LoopLenght = loopLenght;
-            Animating = false;
+            Animating = true;
             Framerate = framerate;
         }
 

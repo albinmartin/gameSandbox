@@ -29,9 +29,10 @@ namespace GameSandbox.Entities
         {
             // Create systems.
             AddSystem(new RenderSystem(_entityManager, content, graphics));
-            AddSystem(new MovementSystem(_entityManager));
             AddSystem(new PlayerSystem(_entityManager, input));
             AddSystem(new AnimationSystem(_entityManager));
+            AddSystem(new CollisionSystem(_entityManager));
+            AddSystem(new MovementSystem(_entityManager));
 
             // Create Entities.
             Entity e = new Entity();
@@ -39,14 +40,17 @@ namespace GameSandbox.Entities
             e.AddComponent(new Movement(e));
             e.AddComponent(new Player(e));
             e.AddComponent(new Animation(e, SpriteLoop.Left, 4, 4));
+            e.AddComponent(new Collision(e));
             AddEntity(e);
 
             // Spawn many entities
-            for(int i = 0; i < 0; i++)
+            for(int i = 0; i < 10; i++)
             {
                 Entity t = new Entity();
-                t.AddComponent(new Sprite(t));
-                t.AddComponent(new Movement(t, new Vector2(0, (float)(i*60))));
+                t.AddComponent(new Sprite(t, SpriteType.Goatman));
+                t.AddComponent(new Movement(t, new Vector2(250 +(float)(i*50), 130)));
+                t.AddComponent(new Animation(t, SpriteLoop.Left, 4, 4));
+                t.AddComponent(new Collision(t));
                 AddEntity(t);
             }
         }

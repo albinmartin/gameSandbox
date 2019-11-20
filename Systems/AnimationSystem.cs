@@ -28,48 +28,51 @@ namespace GameSandbox.Systems
             {
                 Animation animation = (Animation)_entityManager.GetComponent(entity, ComponentType.Animation);
 
-                // Check direction of movement if possible.
-                // TODO: Make more generic?
-                Movement movement = (Movement)_entityManager.GetComponent(entity, ComponentType.Movement);
-                if(movement != null)
+                // Animate moving sprite.
+                // TODO: Add animation for static sprites.
+                if (animation.Animating)
                 {
-                    // Determine direction and flip texture accordingly.
-                    switch (movement.Facing)
+                    Movement movement = (Movement)_entityManager.GetComponent(entity, ComponentType.Movement);
+                    if (movement != null)
                     {
-                        case Direction.Left:
-                            if(movement.Velocity == Vector2.Zero)
-                            {
-                                animation.SpriteLoop = SpriteLoop.IdleLeft;
+                        // Determine direction and flip texture accordingly.
+                        switch (movement.Facing)
+                        {
+                            case Direction.Left:
+                                if (movement.Velocity == Vector2.Zero)
+                                {
+                                    animation.SpriteLoop = SpriteLoop.IdleLeft;
+                                    break;
+                                }
+                                animation.SpriteLoop = SpriteLoop.Left;
                                 break;
-                            }
-                            animation.SpriteLoop = SpriteLoop.Left;
-                            break;
-                        case Direction.Right:
-                            if (movement.Velocity == Vector2.Zero)
-                            {
-                                animation.SpriteLoop = SpriteLoop.IdleRight;
+                            case Direction.Right:
+                                if (movement.Velocity == Vector2.Zero)
+                                {
+                                    animation.SpriteLoop = SpriteLoop.IdleRight;
+                                    break;
+                                }
+                                animation.SpriteLoop = SpriteLoop.Right;
                                 break;
-                            }
-                            animation.SpriteLoop = SpriteLoop.Right;
-                            break;
-                        case Direction.Up:
-                            break;
-                        case Direction.Down:
-                            break;
-                        default:
-                            break;
+                            case Direction.Up:
+                                break;
+                            case Direction.Down:
+                                break;
+                            default:
+                                break;
+                        }
                     }
-                }
 
-                // Calculate framerate based on animation.
-                float framerate = (1.0f / animation.Framerate);
-                timeSinceLast += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    // Calculate framerate based on animation.
+                    float framerate = (1.0f / animation.Framerate);
+                    timeSinceLast += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-                // Update frame.
-                if (timeSinceLast > framerate)
-                {
-                    AdvanceFrame(animation);
-                    timeSinceLast = 0.0f;
+                    // Update frame.
+                    if (timeSinceLast > framerate)
+                    {
+                        AdvanceFrame(animation);
+                        timeSinceLast = 0.0f;
+                    }
                 }
             }
         }

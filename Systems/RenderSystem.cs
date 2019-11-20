@@ -46,7 +46,7 @@ namespace GameSandbox.Systems
         {
             // Collect entities.
             List<Entity> sprites = _entityManager.GetEntities(ComponentType.Sprite);
-
+            
             _spriteBatch.Begin();
             foreach(var entity in sprites)
             {

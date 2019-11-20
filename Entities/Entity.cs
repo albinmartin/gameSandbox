@@ -9,6 +9,7 @@ namespace GameSandbox.Entities
 {
     public class Entity
     {
+        // TODO: Could change _components to array with index map for performance on many components.
         private List<Component> _components;
         private ComponentType _componentMask;
 

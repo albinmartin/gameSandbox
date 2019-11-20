@@ -14,6 +14,7 @@ namespace GameSandbox.Components
         Movement = 2,
         Player = 4,
         Animation = 8,
+        Collision = 16,
     };
 
     public abstract class Component

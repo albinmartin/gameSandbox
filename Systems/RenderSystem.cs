@@ -22,6 +22,7 @@ namespace GameSandbox.Systems
         public RenderSystem(EntityManager entityManager, ContentManager content, GraphicsDevice graphics)
             :base(entityManager, content, graphics)
         {
+            // Configure spritebatch.
             _spriteBatch = new SpriteBatch(graphics);
             _entitySet = ComponentType.Sprite;
 

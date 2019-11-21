@@ -8,11 +8,19 @@
     <File>D:/docs/code/GameSandbox/GameSandbox/Content/entities/spritesheet_goat.png</File>
     <File>D:/docs/code/GameSandbox/GameSandbox/Content/entities/spritesheet_goat_v1.png</File>
     <File>D:/docs/code/GameSandbox/GameSandbox/Content/entities/spritesheet1.png</File>
+    <File>D:/docs/code/GameSandbox/GameSandbox/Content/landscape/grass.png</File>
+    <File>D:/docs/code/GameSandbox/GameSandbox/Content/landscape/grass_light_fall.png</File>
+    <File>D:/docs/code/GameSandbox/GameSandbox/Content/landscape/grass_muted.png</File>
+    <File>D:/docs/code/GameSandbox/GameSandbox/Content/landscape/grass_muted_fall.png</File>
     <File>D:/docs/code/GameSandbox/GameSandbox/Content/menu/main1.png</File>
     <File>D:/docs/code/GameSandbox/GameSandbox/Content/menu/main2.png</File>
     <File>D:/docs/code/GameSandbox/GameSandbox/Content/menu/world.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

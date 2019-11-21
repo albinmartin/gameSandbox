@@ -65,6 +65,7 @@
     <Compile Include="Systems\MovementSystem.cs" />
     <Compile Include="Components\Player.cs" />
     <Compile Include="Systems\PlayerSystem.cs" />
+    <Compile Include="Systems\RenderMapSystem.cs" />
     <Compile Include="Systems\RenderSystem.cs" />
     <Compile Include="Systems\GameSystem.cs" />
   </ItemGroup>
